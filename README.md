@@ -13,11 +13,19 @@ I created this application to allow us to quickly remotely control audio on dron
 ## How to Use
 
 1. Run `Tractus.WinAudioControlApi.exe`. 
-2. Optional - provide the `p=1234` parameter to specify the HTTP port to listen on.
+2. Optional - provide the `-p=1234` parameter to specify the HTTP port to listen on.
 
 The app will listen on all interfaces (0.0.0.0).
 
 Documentation is available on the `/swagger` route, and the OpenAPI specification is available at `/swagger/v1/swagger.json`.
+
+## Command Line Flags
+
+Flag|Description
+----|----
+`-p={port}`|The HTTP port to listen on. E.g. `-p=9009` will have the app listen on port 9009.
+`-warnonly`|Changes the log level to warnings and errors.
+`-debug`|Changes the log level to provide a lot of detail. Not recommended.
 
 ## Routes
 
@@ -29,6 +37,7 @@ Route|Description
 `/outputs/status`|Gets a JSON dictionary of output device volumes and mute status. Use `?all=true` to list all output devices regardless of connection state.
 `/output/{id}/mute`|Mutes an output device. `{id}` is the ID of the device as provided by `/outputs`.
 `/output/{id}/unmute`|Unmutes an output device. `{id}` is the ID of the device as provided by `/outputs`.
+`/output/{id}/mute/toggle`|Unmutes or mutes an output device based on its current state. `{id}` is the ID of the device as provided by `/outputs`.
 `/output/{id}/volume/{level}`|Sets the volume level, from `0.0` to `1.0`, of an output device. `{id}` is the ID of the device as provided by `/outputs`.
 
 
@@ -40,6 +49,7 @@ Route|Description
 `/inputs/status`|Gets a JSON dictionary of input device volumes and mute status. Use `?all=true` to list all input devices regardless of connection state.
 `/input/{id}/mute`|Mutes an input device. `{id}` is the ID of the device as provided by `/inputs`.
 `/input/{id}/unmute`|Unmutes an input device. `{id}` is the ID of the device as provided by `/inputs`.
+`/input/{id}/mute/toggle`|Unmutes or mutes an input device based on its current state. `{id}` is the ID of the device as provided by `/outputs`.
 `/input/{id}/volume/{level}`|Sets the volume level, from `0.0` to `1.0`, of an input device. `{id}` is the ID of the device as provided by `/inputs`.
 
 ### Miscellaneous

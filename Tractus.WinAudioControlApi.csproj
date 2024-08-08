@@ -10,7 +10,7 @@
     <Authors>Tractus Events</Authors>
     <Copyright>Tractus Events</Copyright>
     <PackageIcon>WindowsAudioControlAPI_Icon.png</PackageIcon>
-    <Version>2024.8.8.1</Version>
+    <Version>2024.8.8.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

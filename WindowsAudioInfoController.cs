@@ -42,6 +42,17 @@ public class WindowsAudioInfoController
         return this.ChangeMuteOnDevice(id, mute, DataFlow.Capture);
     }
 
+    public ChangeAudioDeviceVolumeModel ToggleMuteOnOutputDevice(string id)
+    {
+        return this.ToggleMuteOnDevice(id, DataFlow.Render);
+    }
+
+    public ChangeAudioDeviceVolumeModel ToggleMuteOnInputDevice(string id)
+    {
+        return this.ToggleMuteOnDevice(id, DataFlow.Capture);
+    }
+
+
     public ChangeAudioDeviceVolumeModel ChangeVolumeOnOutputDevice(string id, float volumeScalar)
     {
         return this.ChangeVolumeOnDevice(id, volumeScalar, DataFlow.Render);
@@ -50,6 +61,29 @@ public class WindowsAudioInfoController
     public ChangeAudioDeviceVolumeModel ChangeVolumeOnInputDevice(string id, float volumeScalar)
     {
         return this.ChangeVolumeOnDevice(id, volumeScalar, DataFlow.Capture);
+    }
+
+    private ChangeAudioDeviceVolumeModel ToggleMuteOnDevice(string id, DataFlow type)
+    {
+        using var enumerator = new MMDeviceEnumerator();
+
+        try
+        {
+            using var device = enumerator.GetDevice(id);
+
+            if (device.State != DeviceState.Active)
+            {
+                return new ChangeAudioDeviceVolumeModel(id, AudioRequestResult.DeviceNotConnected);
+            }
+
+            device.AudioEndpointVolume.Mute = !device.AudioEndpointVolume.Mute;
+
+            return new ChangeAudioDeviceVolumeModel(id, device.FriendlyName, device.AudioEndpointVolume.Mute, device.AudioEndpointVolume.MasterVolumeLevelScalar);
+        }
+        catch (Exception ex)
+        {
+            return new ChangeAudioDeviceVolumeModel(id, AudioRequestResult.Exception, ex);
+        }
     }
 
     private ChangeAudioDeviceVolumeModel ChangeMuteOnDevice(string id, bool mute, DataFlow type)
