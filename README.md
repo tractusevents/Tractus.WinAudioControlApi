@@ -8,6 +8,8 @@ If you've ever needed to remotely control microphone or speaker volumes on a Win
 
 I created this application to allow us to quickly remotely control audio on drone PCs sent to clients for virtual and hybrid productions.
 
+**Huge thanks to the [NAudio](https://github.com/naudio/NAudio) project - this app uses the NAudio library for control.**
+
 ## How to Use
 
 1. Run `Tractus.WinAudioControlApi.exe`. 
@@ -56,3 +58,9 @@ Route|Description
 ## More Info about Tractus
 
 We make other tools for event production. Check them out [at our website](https://www.tractusevents.com/tools).
+
+## License
+
+This project is licensed under the GNU General Public License (GPL) version 2. It is free to use for any purpose, personal or commercial.
+
+For paid support options, please contact us.
